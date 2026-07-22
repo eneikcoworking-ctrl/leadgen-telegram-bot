@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic Fleet - Status Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .zebra-row:nth-child(even) {
+            background-color: #f8fafc; /* Slate-50 fallback from guidance */
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#f7f9ff",
+                      "tertiary-fixed": "#ffdcc2",
+                      "inverse-surface": "#2d3135",
+                      "surface-dim": "#d7dae0",
+                      "primary": "#006193",
+                      "background": "#f7f9ff",
+                      "on-background": "#181c20",
+                      "surface-container-high": "#e5e8ee",
+                      "primary-fixed-dim": "#92ccff",
+                      "secondary": "#506074",
+                      "on-tertiary-fixed": "#2e1500",
+                      "inverse-primary": "#92ccff",
+                      "tertiary-container": "#af6100",
+                      "surface-container-highest": "#dfe3e9",
+                      "outline": "#6f7881",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#001d31",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#3f4850",
+                      "error-container": "#ffdad6",
+                      "surface": "#f7f9ff",
+                      "inverse-on-surface": "#eef1f7",
+                      "tertiary-fixed-dim": "#ffb77a",
+                      "on-tertiary-fixed-variant": "#6d3a00",
+                      "secondary-fixed": "#d3e4fc",
+                      "on-secondary-fixed": "#0c1d2e",
+                      "on-secondary-container": "#56667a",
+                      "surface-container-low": "#f1f4fa",
+                      "tertiary": "#8b4c00",
+                      "outline-variant": "#bfc7d2",
+                      "on-tertiary-container": "#fffbff",
+                      "primary-container": "#007bb9",
+                      "primary-fixed": "#cce5ff",
+                      "secondary-container": "#d3e4fc",
+                      "on-surface": "#181c20",
+                      "on-primary-container": "#fdfcff",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#004b73",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#ebeef4",
+                      "secondary-fixed-dim": "#b7c8df",
+                      "surface-tint": "#006497",
+                      "on-secondary-fixed-variant": "#38485b",
+                      "surface-variant": "#dfe3e9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "gutter": "16px",
+                      "sm": "8px",
+                      "xs": "4px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "headline-md-mobile": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "label-mono": ["JetBrains Mono"],
+                      "body-lg": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col pb-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-14 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary tracking-tight">Kinetic Fleet</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors hidden md:block">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<main class="mt-14 p-gutter max-w-container-max mx-auto w-full">
+<!-- Summary Stats Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md mb-lg">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-body-sm font-bold text-on-surface-variant">Total Accounts</span>
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="group">group</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-display-lg font-display-lg">1,248</span>
+<span class="text-emerald-600 text-body-sm font-bold flex items-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="arrow_upward">arrow_upward</span>
+                        12%
+                    </span>
+</div>
+<div class="mt-sm h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-3/4"></div>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-body-sm font-bold text-on-surface-variant">Active Proxies</span>
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="router">router</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-display-lg font-display-lg">842</span>
+<span class="text-body-sm text-on-surface-variant">/ 900</span>
+</div>
+<div class="mt-sm h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[93%]"></div>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-body-sm font-bold text-on-surface-variant">Messages Sent Today</span>
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="send">send</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-display-lg font-display-lg">42.5k</span>
+<span class="text-on-surface-variant text-body-sm">Peak: 50k</span>
+</div>
+<div class="mt-sm h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/2"></div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Fleet Health (Asymmetric Layout Column) -->
+<section class="lg:col-span-4 space-y-md">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg h-full">
+<h2 class="text-headline-sm font-headline-sm mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+                        Fleet Health
+                    </h2>
+<!-- Circular Chart Placeholder UI -->
+<div class="relative w-48 h-48 mx-auto mb-lg">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<!-- Background Circle -->
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<!-- Active Progress -->
+<circle class="text-primary transition-all duration-1000" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="37.68" stroke-width="8"></circle>
+<!-- Banned Segment -->
+<circle class="text-error" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="238.64" stroke-width="8" style="transform: rotate(306deg); transform-origin: 50% 50%;"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-headline-md font-headline-md">85%</span>
+<span class="text-body-sm text-on-surface-variant">Operational</span>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center justify-between p-sm rounded bg-surface-container-low">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-body-md font-medium">Active</span>
+</div>
+<span class="text-label-mono font-label-mono">1,061</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded bg-surface-container-low">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></div>
+<span class="text-body-md font-medium">Pending</span>
+</div>
+<span class="text-label-mono font-label-mono">142</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded bg-surface-container-low">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<span class="text-body-md font-medium">Banned</span>
+</div>
+<span class="text-label-mono font-label-mono">45</span>
+</div>
+</div>
+<button class="w-full mt-lg border border-primary text-primary font-bold py-sm rounded-lg hover:bg-primary/5 transition-colors text-body-md flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="file_download">file_download</span>
+                        Export Health Report
+                    </button>
+</div>
+</section>
+<!-- Recent Activity List (Bento-like Grid Column) -->
+<section class="lg:col-span-8">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col h-full">
+<div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+<h2 class="text-headline-sm font-headline-sm flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+                            Recent Activity
+                        </h2>
+<span class="text-body-sm font-label-mono bg-primary-container text-on-primary-container px-sm py-1 rounded">LIVE FEED</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-high text-on-surface-variant">
+<tr>
+<th class="px-md py-sm text-body-sm font-bold">Event</th>
+<th class="px-md py-sm text-body-sm font-bold">Target</th>
+<th class="px-md py-sm text-body-sm font-bold">Status</th>
+<th class="px-md py-sm text-body-sm font-bold">Time</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="zebra-row hover:bg-primary/5 transition-colors">
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-emerald-600" data-icon="check_circle">check_circle</span>
+<span class="text-body-md">Account Connection</span>
+</div>
+</td>
+<td class="px-md py-md font-label-mono text-body-sm">@user_prime_99</td>
+<td class="px-md py-md">
+<span class="px-sm py-1 rounded bg-emerald-600/10 text-emerald-700 text-body-sm font-bold">Active</span>
+</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">2m ago</td>
+</tr>
+<tr class="zebra-row hover:bg-primary/5 transition-colors">
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-error" data-icon="error">error</span>
+<span class="text-body-md">Proxy Handshake Failed</span>
+</div>
+</td>
+<td class="px-md py-md font-label-mono text-body-sm">192.168.1.1:8080</td>
+<td class="px-md py-md">
+<span class="px-sm py-1 rounded bg-error-container text-on-error-container text-body-sm font-bold">Error</span>
+</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">5m ago</td>
+</tr>
+<tr class="zebra-row hover:bg-primary/5 transition-colors">
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-amber-600" data-icon="pending">pending</span>
+<span class="text-body-md">Batch Task Scheduled</span>
+</div>
+</td>
+<td class="px-md py-md font-label-mono text-body-sm">Broadcast #422</td>
+<td class="px-md py-md">
+<span class="px-sm py-1 rounded bg-amber-600/10 text-amber-700 text-body-sm font-bold">Pending</span>
+</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">12m ago</td>
+</tr>
+<tr class="zebra-row hover:bg-primary/5 transition-colors">
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="sync">sync</span>
+<span class="text-body-md">Metadata Updated</span>
+</div>
+</td>
+<td class="px-md py-md font-label-mono text-body-sm">@fleet_node_01</td>
+<td class="px-md py-md">
+<span class="px-sm py-1 rounded bg-primary-container text-on-primary-container text-body-sm font-bold">Success</span>
+</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">18m ago</td>
+</tr>
+<tr class="zebra-row hover:bg-primary/5 transition-colors">
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="block">block</span>
+<span class="text-body-md">Flood Wait Triggered</span>
+</div>
+</td>
+<td class="px-md py-md font-label-mono text-body-sm">@alpha_sender</td>
+<td class="px-md py-md">
+<span class="px-sm py-1 rounded bg-on-surface-variant/10 text-on-surface-variant text-body-sm font-bold">Waiting</span>
+</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">24m ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md mt-auto text-center border-t border-outline-variant">
+<button class="text-primary font-bold text-body-md hover:underline decoration-2 underline-offset-4">
+                            View Comprehensive Logs
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface border-t border-outline-variant shadow-md">
+<!-- Dashboard Active -->
+<a class="flex flex-col items-center justify-center text-primary font-bold scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-body-sm font-body-sm">Dashboard</span>
+</a>
+<!-- Accounts Inactive -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-body-sm font-body-sm">Accounts</span>
+</a>
+<!-- Proxies Inactive -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest/10 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="router">router</span>
+<span class="text-body-sm font-body-sm">Proxies</span>
+</a>
+</nav>
+<!-- Floating Action Button (FAB) - Suppression logic: Rendered only on main dashboard as per instructions -->
+<button class="fixed right-6 bottom-24 bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[32px]" data-icon="add">add</span>
+</button>
+<script>
+        // Micro-interaction for real-time feel
+        document.querySelectorAll('.zebra-row').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateX(4px)';
+                row.style.transition = 'transform 0.2s ease-out';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Simulating live update data pulse
+        setInterval(() => {
+            const badge = document.querySelector('.bg-primary-container');
+            badge.classList.toggle('opacity-50');
+            setTimeout(() => badge.classList.toggle('opacity-50'), 500);
+        }, 3000);
+    </script>
+</body></html>
