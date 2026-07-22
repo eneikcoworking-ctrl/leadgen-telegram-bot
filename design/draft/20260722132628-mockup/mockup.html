@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Create Campaign - Outreach Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Hanken+Grotesk:wght@600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+            border-color: #6366F1 !important;
+        }
+        .step-active {
+            position: relative;
+        }
+        .step-active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #0D9488;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#07006c",
+                        "secondary-fixed-dim": "#6bd8cb",
+                        "surface-container-high": "#dce9ff",
+                        "on-background": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#7073ff",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#7c839b",
+                        "secondary-fixed": "#89f5e7",
+                        "tertiary": "#000000",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-primary": "#bec6e0",
+                        "tertiary-fixed": "#e1e0ff",
+                        "inverse-surface": "#213145",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#565e74",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "surface-variant": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#005049",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-container": "#006f66",
+                        "primary-container": "#131b2e",
+                        "outline": "#76777d",
+                        "on-primary-fixed": "#131b2e",
+                        "outline-variant": "#c6c6cd",
+                        "secondary": "#006a61",
+                        "primary": "#000000",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-container": "#86f2e4",
+                        "surface-container-low": "#eff4ff",
+                        "on-surface-variant": "#45464d",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-fixed": "#00201d",
+                        "surface": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "lg": "24px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px",
+                        "xl": "32px",
+                        "xs": "8px",
+                        "container-max": "1440px",
+                        "md": "16px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-md": ["JetBrains Mono"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline flex items-center justify-between px-md h-16 w-full">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-surface-variant">Outreach Manager</h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional close-up headshot of a corporate administrator in a sleek, modern office. The lighting is soft and even, highlighting a neutral and focused expression. The background is a clean, minimalist interior with glass and steel elements, maintaining the efficient and precise aesthetic of the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF1mFMJFjfuEDHaJcGjQT7OCoEZrrc8p-HA0XMsmIYJqoIod1ytsvTMpqIkUYLoHA0sz6y1OUBu4iuodv0JX8l45VBCCKQm6EzQkkPxJUfGcfXfLKHDNB4tnGvyPxV2PJCJtDjx8c55PMdkBIpzT9kJSdQHrbRry9wgHSey9Fpsrkbvi4ALXYnx39mditapbQYtKxk0aic6Q8CXXWmYK1flUU4_X1enopyBzLW0XvywyYCj7BwQcDUzzh4jcyecKg3C6PrP0GGDpw"/>
+</div>
+</div>
+</header>
+<main class="pt-16 pb-20 max-w-lg mx-auto px-md">
+<!-- Step Indicator -->
+<div class="py-6 flex justify-between items-center relative">
+<div class="flex flex-col items-center flex-1 z-10">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-md text-label-md mb-2">1</div>
+<span class="font-label-sm text-label-sm text-secondary">Basic Info</span>
+</div>
+<div class="flex-1 h-[2px] bg-outline-variant -mt-6"></div>
+<div class="flex flex-col items-center flex-1 z-10">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md mb-2">2</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Audience</span>
+</div>
+<div class="flex-1 h-[2px] bg-outline-variant -mt-6"></div>
+<div class="flex flex-col items-center flex-1 z-10">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md mb-2">3</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Review</span>
+</div>
+</div>
+<section class="mt-4">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-1">Campaign Details</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-8">Set the foundation for your new outreach initiative.</p>
+<form class="space-y-6" id="campaignForm">
+<!-- Campaign Name -->
+<div class="space-y-2">
+<label class="block font-body-sm text-body-sm font-semibold text-on-surface-variant" for="campaign_name">Campaign Name</label>
+<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md focus:border-secondary transition-all" id="campaign_name" name="campaign_name" placeholder="e.g. Q4 Growth Sequence" type="text"/>
+</div>
+<!-- Schedule Selection -->
+<div class="space-y-2">
+<label class="block font-body-sm text-body-sm font-semibold text-on-surface-variant">Schedule</label>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex flex-col items-start p-4 border border-secondary bg-secondary-container/20 rounded-xl text-left transition-all ring-1 ring-secondary" type="button">
+<span class="font-label-md text-label-md text-secondary">IMMEDIATE</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Start as soon as active</span>
+</button>
+<button class="flex flex-col items-start p-4 border border-outline-variant bg-white rounded-xl text-left transition-all hover:bg-surface-container-low" type="button">
+<span class="font-label-md text-label-md text-on-surface-variant">SCHEDULED</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pick a specific date</span>
+</button>
+</div>
+</div>
+<!-- Channel Selection -->
+<div class="space-y-4">
+<label class="block font-body-sm text-body-sm font-semibold text-on-surface-variant">Select Channels</label>
+<!-- Channel Cards -->
+<div class="space-y-3">
+<!-- Email -->
+<div class="flex items-center justify-between p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:border-secondary transition-colors" onclick="toggleChannel(this)">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<div class="font-body-md font-semibold text-on-surface">Email</div>
+<div class="text-[11px] text-on-surface-variant font-label-sm uppercase tracking-wider">High Volume / Cold</div>
+</div>
+</div>
+<div class="channel-check w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0">check</span>
+</div>
+</div>
+<!-- SMS -->
+<div class="flex items-center justify-between p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:border-secondary transition-colors" onclick="toggleChannel(this)">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">sms</span>
+</div>
+<div>
+<div class="font-body-md font-semibold text-on-surface">SMS</div>
+<div class="text-[11px] text-on-surface-variant font-label-sm uppercase tracking-wider">High Engagement</div>
+</div>
+</div>
+<div class="channel-check w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0">check</span>
+</div>
+</div>
+<!-- LinkedIn -->
+<div class="flex items-center justify-between p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:border-secondary transition-colors" onclick="toggleChannel(this)">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">alternate_email</span>
+</div>
+<div>
+<div class="font-body-md font-semibold text-on-surface">LinkedIn</div>
+<div class="text-[11px] text-on-surface-variant font-label-sm uppercase tracking-wider">Professional Social</div>
+</div>
+</div>
+<div class="channel-check w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0">check</span>
+</div>
+</div>
+</div>
+</div>
+</form>
+</section>
+</main>
+<!-- Sticky Bottom Actions -->
+<footer class="fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant p-4 flex gap-4 z-50">
+<button class="flex-1 py-4 text-center font-label-md text-label-md text-on-surface-variant border border-on-surface-variant rounded-lg active:scale-95 transition-transform">
+            CANCEL
+        </button>
+<button class="flex-[2] py-4 text-center font-label-md text-label-md text-white bg-[#0D9488] rounded-lg shadow-sm hover:brightness-110 active:scale-95 transition-all">
+            NEXT: AUDIENCE
+        </button>
+</footer>
+<script>
+        function toggleChannel(element) {
+            const check = element.querySelector('.channel-check');
+            const icon = check.querySelector('.material-symbols-outlined');
+            const isActive = element.classList.contains('border-secondary');
+
+            if (isActive) {
+                element.classList.remove('border-secondary', 'bg-secondary-container/10', 'ring-1', 'ring-secondary');
+                check.classList.remove('bg-secondary', 'border-secondary');
+                check.classList.add('border-outline-variant');
+                icon.classList.add('opacity-0');
+            } else {
+                element.classList.add('border-secondary', 'bg-secondary-container/10', 'ring-1', 'ring-secondary');
+                check.classList.add('bg-secondary', 'border-secondary');
+                check.classList.remove('border-outline-variant');
+                icon.classList.remove('opacity-0');
+            }
+        }
+
+        // Add micro-interaction to schedule buttons
+        const scheduleButtons = document.querySelectorAll('button[type="button"].grid'); // selector specific to the schedule section
+        document.querySelectorAll('.grid button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Simplified selection logic for demo
+                this.parentElement.querySelectorAll('button').forEach(b => {
+                    b.classList.remove('border-secondary', 'bg-secondary-container/20', 'ring-1', 'ring-secondary');
+                    b.classList.add('border-outline-variant', 'bg-white');
+                    b.querySelector('span:first-child').classList.replace('text-secondary', 'text-on-surface-variant');
+                });
+                this.classList.add('border-secondary', 'bg-secondary-container/20', 'ring-1', 'ring-secondary');
+                this.classList.remove('border-outline-variant', 'bg-white');
+                this.querySelector('span:first-child').classList.replace('text-on-surface-variant', 'text-secondary');
+            });
+        });
+    </script>
+</body></html>
