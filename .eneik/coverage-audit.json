@@ -1,0 +1,32 @@
+{
+  "gaps": [
+    {
+      "title": "Campaign Manager and Spintax Randomization",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When running outreach campaigns, I want to upload contact bases, configure templates with spintax randomization, and execute messaging with automated account rotation, so that I can reach target leads efficiently without triggering flood bans.",
+      "acceptanceCriteria": "Given a campaign with a spintax template and contact list, When the execution is started, Then the system parses the spintax to randomize each message, automatically switches accounts upon FLOOD_WAIT errors or when reaching daily limits, and records delivery statuses.",
+      "reason": "literal brief requirement: Module 2 (Campaign Manager) and Campaign-related logic (including spintax templating and account rotation) are entirely missing from the task list."
+    },
+    {
+      "title": "AI Dialog Engine and Event Listener",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When a lead replies to an outreach message, I want the system to capture the event and automatically continue the conversation using historical context, configured system prompts, and stop-action triggers, so that leads are qualified without manual operator intervention.",
+      "acceptanceCriteria": "Given an active Telegram session and a configured system prompt, When a user sends a reply message, Then the event listener captures it, retrieves dialogue history, requests an LLM-generated response, and automatically suspends the AI and marks the chat as 'Wait for human' if any stop-action trigger (e.g. max replies or specific intents) is matched.",
+      "reason": "literal brief requirement: Module 3 (AI-Assistant / LLM Dialog Engine) and its core functionalities (Event Listener, Context Management, stop-action triggers) are completely omitted in the task list."
+    },
+    {
+      "title": "Live Chat CRM Unified Panel",
+      "roleTag": "BARCAN-TAG-11",
+      "jtbd": "When managing multiple outreach dialogues, I want a unified Live Chat Svelte UI that color-codes conversations by AI/human status and allows seamless manual takeover, so that operator intervention is optimized and efficient.",
+      "acceptanceCriteria": "Given the Live Chat CRM dashboard, When a user opens the incoming feeds, Then chats from all Telegram accounts are aggregated, display color-coded status indicators (e.g. In progress / Awaiting human), and any manual message sent by the operator immediately disables the AI auto-responder for that chat.",
+      "reason": "literal brief requirement: Module 4 (Live Chat CRM panel on Svelte) is completely missing from the task list."
+    },
+    {
+      "title": "Admin Authentication and Security Session Management",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When accessing the private self-hosted admin panel, I want to authenticate securely as an administrator, so that unauthorized users are prevented from controlling the active Telegram sessions, proxies, and outreach campaigns.",
+      "acceptanceCriteria": "Given an unauthenticated request to the Svelte dashboard, When evaluated by the backend, Then the request is denied with a 401/302 status; Given a valid admin username and password, When submitted to the login endpoint, Then a secure session or token is generated, granting full access to management features.",
+      "reason": "domain-standard expectation: A private self-hosted SaaS-like admin panel hosting highly sensitive Telegram sessions, SOCKS5/HTTP proxies, and business AI campaigns requires robust user authentication (e.g. via Spring Security) even if details of the auth flow are not explicitly listed in the brief's modules."
+    }
+  ]
+}
