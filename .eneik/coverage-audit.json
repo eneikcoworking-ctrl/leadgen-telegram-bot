@@ -1,0 +1,53 @@
+{
+  "gaps": [
+    {
+      "title": "Telegram Account and Session Manager",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When setting up cold outreach campaigns, I want to authenticate and manage Telegram accounts with unique proxies and human-mimicking delay rules, so that I can send campaigns from multiple rotated identities without getting instantly banned.",
+      "acceptanceCriteria": "Given an administrator in the admin panel, When they authenticate a new Telegram account using OTP or a session file and bind a valid SOCKS5 proxy, Then the status is monitored in real-time and successfully switches to Active.",
+      "reason": "literal brief requirement under 'Модуль 1. Управление аккаунтами (Session Manager)'"
+    },
+    {
+      "title": "AI Dialog Assistant Integration",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When an outreach recipient replies to a message, I want an AI Dialog Assistant using an LLM to automatically handle the response using context and custom prompts, so that lead qualification is automated.",
+      "acceptanceCriteria": "Given an active dialogue with a lead, When the lead sends an incoming reply, Then the Spring AI integration triggers an LLM completion using the conversation history and configured system prompt, generating and sending an automated response.",
+      "reason": "literal brief requirement under 'Модуль 3. AI-Ассистент (LLM Dialog Engine)'"
+    },
+    {
+      "title": "Unified Live Chat CRM Svelte Panel",
+      "roleTag": "BARCAN-TAG-11",
+      "jtbd": "When an automated dialogue requires manual human intervention, I want to use a unified color-coded CRM dashboard to read and send messages directly, so that the operator can easily take over control and pause the AI auto-replies.",
+      "acceptanceCriteria": "Given an active dialog with color-coded status, When an operator sends a message manually via the CRM interface, Then the message is dispatched to the Telegram client and AI auto-response is instantly disabled.",
+      "reason": "literal brief requirement under 'Модуль 4. Диалоговая Панель (Live Chat CRM на Svelte)'"
+    },
+    {
+      "title": "Automated Session Warming Engine",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When deploying newly initialized or bought Telegram accounts, I want the system to automatically perform background warming activities such as subscribing to channels and simulating online reading, so that account trust is built and bans are avoided.",
+      "acceptanceCriteria": "Given a newly registered Telegram account, When the background session warming task runs, Then it executes simulated online presence, channel subscriptions, and post reads using dynamic timeouts.",
+      "reason": "literal brief requirement under '4. Решение проблемы блокировок (Anti-Ban Strategy)'"
+    },
+    {
+      "title": "Docker-Compose Production Deployment Config",
+      "roleTag": "BARCAN-TAG-05",
+      "jtbd": "When my application development is complete, I want to deploy the Spring Boot backend, Svelte SSR frontend, PostgreSQL, and Redis databases via a single docker-compose configuration on my private VPS, so that the platform is easily self-hosted.",
+      "acceptanceCriteria": "Given a clean VPS server with Docker and Docker Compose, When running docker-compose up, Then the Spring App, Svelte, Postgres, and Redis containers launch, establish secure internal connections, and expose the Svelte Web UI.",
+      "reason": "literal brief requirement under '5. Этапы разработки и MVP'"
+    },
+    {
+      "title": "Administrator Authentication and Session Security",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When accessing the private self-hosted admin panel, I want to authenticate securely as an admin using Spring Security, so that unauthorized users cannot gain control of my Telegram accounts or campaign databases.",
+      "acceptanceCriteria": "Given an unauthenticated visitor, When they request any campaign management dashboard or backend REST API endpoint, Then their access is blocked with a redirection to the secure Login Page or a 401 Unauthorized response.",
+      "reason": "domain-standard expectation for a private self-hosted SaaS-like admin panel with custom administrators (Spring Security and Users table schema are mentioned in the brief)"
+    },
+    {
+      "title": "Outreach Recipient Blacklist and Opt-out Management",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When a lead sends a negative reply or demands to be unsubscribed, I want the system to automatically add their phone or username to a blacklist, so that future outreach campaigns do not target them and trigger user-initiated spam bans.",
+      "acceptanceCriteria": "Given an incoming lead message indicating negativity, When the intent engine detects an opt-out intent, Then the lead's status is set to Blacklisted/OptedOut and any subsequent campaign execution targeting them is blocked.",
+      "reason": "domain-standard expectation for recipient opt-out and spam mitigation in mass cold-outreach products"
+    }
+  ]
+}
