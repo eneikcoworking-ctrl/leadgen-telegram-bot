@@ -1,0 +1,46 @@
+{
+  "gaps": [
+    {
+      "title": "Telegram Account Session Manager and Anti-Fraud Logic",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When adding and managing Telegram accounts, I want to authenticate them via OTP or session/tdata upload, assign individual SOCKS5/HTTP proxies, monitor their active status, and simulate human behavior (typing status, random delays, daily limits), so that the fleet operates reliably without triggering bans.",
+      "acceptanceCriteria": "Given a Telegram phone number and a proxy, When OTP authentication is triggered, Then a session is established and saved. Given an active session, When sending a message, Then the system simulates the 'typing' status and introduces a random delay of 120-300 seconds.",
+      "reason": "literal brief requirement: Module 1 of the brief explicitly requires a Session Manager to handle OTP/session uploads, proxy assignment, status monitoring, and anti-fraud simulation, which is completely unaddressed by the task list."
+    },
+    {
+      "title": "Outreach Campaign Setup and Spintax Execution Engine",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When launching a cold outreach campaign, I want to import contact databases, configure message templates with spintax, and automatically rotate sending accounts on daily limits or flood errors, so that messages are delivered efficiently without flood limits.",
+      "acceptanceCriteria": "Given a database of leads and a message template with spintax, When the campaign is executed, Then the engine parses the spintax, sends the message using an active account, and automatically rotates to the next account if a FLOOD_WAIT error occurs.",
+      "reason": "literal brief requirement: Module 2 of the brief requires Campaign Management (importing contacts, spintax templates, and account rotation on limits/errors), which is completely unaddressed by the task list."
+    },
+    {
+      "title": "AI Dialog Engine and Event Listener",
+      "roleTag": "BARCAN-TAG-04",
+      "jtbd": "When a prospect replies to an outreach message, I want an AI Dialog Engine to capture the inbound message, maintain conversation context in PostgreSQL, and generate responses using LLMs with a configurable system prompt and stop-action triggers, so that leads are qualified automatically.",
+      "acceptanceCriteria": "Given an inbound Telegram message, When the event listener captures it, Then the orchestration service retrieves the dialog history, queries the LLM with the context and system prompt, and updates the conversation state accordingly.",
+      "reason": "literal brief requirement: Module 3 of the brief requires an AI Dialog Engine (Event Listener, context management in PostgreSQL, configurable System Prompt, and LLM orchestration), which is completely unaddressed by the task list."
+    },
+    {
+      "title": "Background Telegram Session Warm-Up Service",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When maintaining active Telegram sessions, I want a background service to simulate natural human activity (subscribing to channels, reading posts, and simulating online presence), so that the accounts avoid anti-spam bans.",
+      "acceptanceCriteria": "Given active Telegram sessions, When the background warm-up service runs, Then accounts periodically subscribe to channels, view posts, and set online presence based on randomized schedules.",
+      "reason": "literal brief requirement: Section 4 (Anti-Ban Strategy) explicitly requires 'фоновую активность аккаунтов (подписки на каналы, чтение постов, симуляция присутствия \"online\")', which is completely unaddressed by the task list."
+    },
+    {
+      "title": "SaaS Admin Panel Operator Authentication and Security",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When accessing the self-hosted admin panel and CRM, I want to log in using secure administrator credentials and have all API requests authenticated, so that only authorized users can manage accounts, campaigns, and chats.",
+      "acceptanceCriteria": "Given an unauthenticated request to the REST API or CRM UI, When processed, Then the system returns a 401 Unauthorized response. Given a user with valid admin credentials, When they log in, Then they are granted a secure session/JWT to access protected resources.",
+      "reason": "domain-standard expectation: The brief specifies a private self-hosted SaaS-like admin panel, a Users (administrators) database table, and Spring Security, but the current task list only defines CRM messaging features without any operator authentication or login mechanism."
+    },
+    {
+      "title": "Multi-Service Containerized Deployment Infrastructure",
+      "roleTag": "BARCAN-TAG-05",
+      "jtbd": "When deploying the complete platform, I want a Docker-compose configuration defining the Spring Boot backend, Svelte SSR frontend, PostgreSQL database, and Redis queues, so that the system can be deployed reliably on a VPS.",
+      "acceptanceCriteria": "Given a target VPS environment with Docker, When the docker-compose orchestrates the services, Then all components (Spring App, Svelte SSR, PostgreSQL, Redis) start up and interconnect securely.",
+      "reason": "literal brief requirement: Section 5 (Этап 4) of the brief explicitly requires deployment on a VPS using Docker-compose with Spring App, Svelte SSR, PostgreSQL, and Redis, which is completely unaddressed by the task list."
+    }
+  ]
+}
