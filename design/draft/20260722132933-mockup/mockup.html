@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LeadConnect AI - Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500&family=Geist:wght@500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chat-container {
+            height: calc(100vh - 130px);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-background": "#0b1c30",
+                    "secondary": "#006c49",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "inverse-surface": "#213145",
+                    "surface-container-high": "#dce9ff",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#d3e4fe",
+                    "inverse-on-surface": "#eaf1ff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-primary-container": "#fefcff",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-surface": "#0b1c30",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "tertiary": "#825100",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary-fixed": "#002113",
+                    "surface": "#f8f9ff",
+                    "on-surface-variant": "#424754",
+                    "on-primary-fixed": "#001a42",
+                    "on-secondary-fixed-variant": "#005236",
+                    "inverse-primary": "#adc6ff",
+                    "surface-container": "#e5eeff",
+                    "on-secondary-container": "#00714d",
+                    "on-primary-fixed-variant": "#004395",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#d8e2ff",
+                    "on-primary": "#ffffff",
+                    "primary": "#0058be",
+                    "outline-variant": "#c2c6d6",
+                    "background": "#f8f9ff",
+                    "tertiary-container": "#a36700",
+                    "primary-container": "#2170e4",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#adc6ff",
+                    "outline": "#727785",
+                    "secondary-container": "#6cf8bb",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-bright": "#f8f9ff",
+                    "surface-tint": "#005ac2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "xl": "40px",
+                    "base": "4px",
+                    "lg": "24px",
+                    "container-max": "1440px",
+                    "gutter": "20px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Geist"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "label-md": ["Geist"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-hidden">
+<!-- Top Navigation Bar (Shared Component: TopAppBar Mobile) -->
+<header class="sticky top-0 z-50 w-full bg-surface-container-lowest border-b border-outline-variant px-md py-sm flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<button aria-label="Go back" class="p-xs text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex items-center gap-xs">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A professional close-up studio portrait of a mid-30s woman with a friendly smile, clean lighting, in a modern business environment. The image uses a high-key light-mode aesthetic with soft blues and whites in the blurred background to match a clean CRM interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOIePcWjioi0b_UsHrXIuaKTQ4JhKQ_QCnmvjD5xMusZmIdiz1d-VYL5oRUt7CVa_peQJdh2dBj6Bcx1bYeMG0nUXkA74gIIrdhr9JB3_zufFcn7S9t7lo7k0TYlsI1GHOR5TgnHdwOSaoSWsbhPsINOpA6B-oUbrOWNfk1vMmC4y_nVGOM_wsCTn358vsbpJMAqKjEWGO0yryw_oHP4Lf8mtj6o79KvHp9BRjYJmd5WinR7HPvt3HW-mPDxcnCrabfp8xtwxMFos"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-secondary border-2 border-surface-container-lowest rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<h1 class="font-headline-sm text-headline-sm leading-tight">Sarah Johnson</h1>
+<div class="flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Active Lead</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<button class="p-sm text-primary flex items-center gap-xs font-label-md bg-primary-fixed/30 rounded-full transition-colors hover:bg-primary-fixed/50" onclick="toggleMenu()">
+<span class="font-label-md text-label-md">Actions</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<div class="hidden absolute top-14 right-md w-48 glass-panel shadow-lg rounded-xl border border-outline-variant p-xs z-[60]" id="actions-menu">
+<button class="flex items-center gap-sm w-full p-sm font-label-md text-on-surface hover:bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined">call</span> Call Lead
+                </button>
+<button class="flex items-center gap-sm w-full p-sm font-label-md text-on-surface hover:bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined">event</span> Schedule
+                </button>
+<button class="flex items-center gap-sm w-full p-sm font-label-md text-error hover:bg-error-container rounded-lg">
+<span class="material-symbols-outlined">block</span> Disqualify
+                </button>
+</div>
+</div>
+</header>
+<!-- Chat Area -->
+<main class="chat-container overflow-y-auto px-md py-lg flex flex-col gap-lg bg-surface">
+<!-- System Message -->
+<div class="flex justify-center">
+<div class="bg-surface-container-high px-md py-xs rounded-full border border-outline-variant shadow-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px] text-primary">analytics</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lead score updated to 85</span>
+</div>
+</div>
+<!-- Operator Message (Outbound) -->
+<div class="flex flex-col items-end gap-xs max-w-[85%] self-end">
+<div class="bg-primary text-on-primary px-md py-sm rounded-2xl rounded-tr-none shadow-sm">
+<p class="font-body-md text-body-md">Hi Sarah, following up on your inquiry about our premium plan.</p>
+</div>
+<div class="flex items-center gap-xs">
+<span class="font-label-sm text-label-sm text-outline">10:42 AM</span>
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">done_all</span>
+</div>
+</div>
+<!-- Lead Message (Inbound) -->
+<div class="flex flex-col items-start gap-xs max-w-[85%]">
+<div class="flex items-center gap-xs mb-1">
+<div class="flex items-center gap-xs bg-secondary-container/30 px-sm py-1 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-secondary-container">Positive Intent</span>
+</div>
+</div>
+<div class="bg-surface-container-highest border border-outline-variant text-on-surface px-md py-sm rounded-2xl rounded-tl-none shadow-sm">
+<p class="font-body-md text-body-md">Thanks! I'm interested, can we talk about pricing?</p>
+</div>
+<span class="font-label-sm text-label-sm text-outline ml-1">10:45 AM</span>
+</div>
+<!-- Typing Indicator (Mock) -->
+<div class="flex items-center gap-sm ml-1 opacity-60">
+<div class="flex gap-1">
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+</div>
+<span class="font-label-sm text-label-sm text-outline italic">Sarah is typing...</span>
+</div>
+</main>
+<!-- Bottom Input Bar -->
+<footer class="fixed bottom-0 left-0 w-full glass-panel border-t border-outline-variant p-sm pb-md z-50">
+<!-- Quick Actions Row -->
+<div class="flex gap-sm mb-sm overflow-x-auto no-scrollbar pb-1">
+<button class="whitespace-nowrap px-md py-1.5 bg-surface-container-high rounded-full border border-outline-variant font-label-md text-on-surface-variant hover:bg-surface-container-highest transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">reply</span>
+                Quick Replies
+            </button>
+<button class="whitespace-nowrap px-md py-1.5 bg-surface-container-high rounded-full border border-outline-variant font-label-md text-on-surface-variant hover:bg-surface-container-highest transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+                Macros
+            </button>
+<button class="whitespace-nowrap px-md py-1.5 bg-surface-container-high rounded-full border border-outline-variant font-label-md text-on-surface-variant hover:bg-surface-container-highest transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                Contract Template
+            </button>
+</div>
+<!-- Main Input Container -->
+<div class="flex items-end gap-sm">
+<div class="flex-1 bg-surface-container-low rounded-2xl border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all p-1 flex items-end">
+<button class="p-sm text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-body-md p-sm max-h-32 resize-none leading-relaxed" id="chat-input" placeholder="Type a message..." rows="1"></textarea>
+<button class="p-sm text-primary hover:bg-primary-container/20 rounded-full transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+</div>
+<button aria-label="Send message" class="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</footer>
+<!-- Bottom Nav (Hidden on Chat Focus to maximize space, but kept per Shared Component rules for "Top Level" relevance) -->
+<!-- Note: Usually suppressed in chat, but including it fixed bottom for navigation context if required by rules -->
+<nav class="hidden lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-2 px-4 bg-surface dark:bg-inverse-surface border-t border-outline-variant">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm">Leads</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-sm text-label-sm">Chats</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-label-sm text-label-sm">Tasks</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</div>
+</nav>
+<script>
+        function toggleMenu() {
+            const menu = document.getElementById('actions-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Auto-expand textarea
+        const textarea = document.getElementById('chat-input');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Close menu on outside click
+        window.onclick = function(event) {
+            if (!event.target.closest('#actions-menu') && !event.target.closest('button[onclick="toggleMenu()"]')) {
+                document.getElementById('actions-menu').classList.add('hidden');
+            }
+        }
+        
+        // Hide Bottom Nav on mobile when chat is active to maximize real estate
+        // Rule: Suppress navigation shell if the page intent is Task-Focused or sub-page
+        // Implementation: We'll leave it hidden (lg:hidden was in JSON but for chat we prioritize content)
+    </script>
+</body></html>
